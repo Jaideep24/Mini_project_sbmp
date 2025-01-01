@@ -129,7 +129,6 @@ void encryption(FILE *fp, struct File *f) {
     char encryptedLine[100];
     sprintf(f->encrypted, "encrypted_%s", f->file);
     FILE *ep = fopen(f->encrypted, "w");
-    printf("Encryption type: %d is being applied\n", f->key);
     if (!ep) 
     {
         printf("Error opening encrypted file for writing\n");
@@ -174,7 +173,7 @@ void encryption(FILE *fp, struct File *f) {
 
 // Function to decrypt the file
 void decryption(FILE *fp, struct File *f) {
-    printf("Decryption in progress for encryption type: %d\n", f->key);
+    printf("Decryption in progress\n");
     char line[100];
     char decryptedLine[100];
     sprintf(f->decrypted, "decrypted_%s", f->encrypted);
@@ -233,7 +232,7 @@ int main(void) {
 
     srand(time(NULL));
     f.key = (rand() % 4) + 1;
-    printf("Randomly selected encryption key: %d\n", f.key);  // Move this line here
+    printf("Randomly selected encryption key\n");  // Move this line here
 
     encryption(fp, &f);
     fclose(fp);
