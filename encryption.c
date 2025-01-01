@@ -142,7 +142,6 @@ void encryption(FILE *fp, struct File *f) {
                     encrypt1(line, encryptedLine);
                     fprintf(ep, "%s", encryptedLine);
                 }
-                printf("Encryption 1 is working");
                 break;
             case 2:
                 while (fgets(line, sizeof(line), fp) != NULL) 
@@ -150,7 +149,6 @@ void encryption(FILE *fp, struct File *f) {
                     encrypt2(line, encryptedLine);
                     fprintf(ep, "%s", encryptedLine);
                 }
-                printf("Encryption 2 is working");
                 break;
             case 3:
                 while (fgets(line, sizeof(line), fp) != NULL) 
@@ -158,15 +156,12 @@ void encryption(FILE *fp, struct File *f) {
                     encrypt3(line, encryptedLine);
                     fprintf(ep, "%s", encryptedLine);
                 }
-                printf("Encryption 3 is working");
                 break;
             case 4:
                 while (fgets(line, sizeof(line), fp) != NULL) 
                 {
                     encrypt4(line, encryptedLine);
                     fprintf(ep, "%s", encryptedLine);
-                }
-                printf("Encryption 4 is working");
                 break;
             
         }
@@ -235,7 +230,6 @@ int main(void) {
     }
     srand(time(NULL));
     f.key=(rand()%4)+1;
-    printf("%d\n",f.key);
     encryption(fp, &f);
     fclose(fp);
 
