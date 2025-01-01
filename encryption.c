@@ -129,6 +129,7 @@ void encryption(FILE *fp, struct File *f) {
     char encryptedLine[100];
     sprintf(f->encrypted, "encrypted_%s", f->file);
     FILE *ep = fopen(f->encrypted, "w");
+    printf("Encryption type: %d is being applied\n", f->key);
     if (!ep) 
     {
         printf("Error opening encrypted file for writing\n");
@@ -162,16 +163,18 @@ void encryption(FILE *fp, struct File *f) {
                 {
                     encrypt4(line, encryptedLine);
                     fprintf(ep, "%s", encryptedLine);
+                }
                 break;
-            
         }
       
       fclose(ep);
       printf("File %s encrypted successfully\n", f->file);
+
 }
 
 // Function to decrypt the file
 void decryption(FILE *fp, struct File *f) {
+    printf("Decryption in progress for encryption type: %d\n", f->key);
     char line[100];
     char decryptedLine[100];
     sprintf(f->decrypted, "decrypted_%s", f->encrypted);
@@ -211,7 +214,7 @@ void decryption(FILE *fp, struct File *f) {
                     fprintf(sp, "%s", decryptedLine);
                 }
                 break;
-
+             
         }
     fclose(sp);
     printf("File %s decrypted successfully\n", f->encrypted);
@@ -222,25 +225,27 @@ int main(void) {
     printf("Enter the file name: ");
     scanf("%s", f.file);
 
-  FILE *fp = fopen(f.file, "r");
-    if (!fp) 
-    {
+    FILE *fp = fopen(f.file, "r");
+    if (!fp) {
         printf("Error opening file %s\n", f.file);
         return 1;
     }
+
     srand(time(NULL));
-    f.key=(rand()%4)+1;
+    f.key = (rand() % 4) + 1;
+    printf("Randomly selected encryption key: %d\n", f.key);  // Move this line here
+
     encryption(fp, &f);
     fclose(fp);
 
-  FILE *ep = fopen(f.encrypted, "r");
-  if (!ep) {
-    printf("Error opening encrypted file %s\n", f.encrypted);
-    return 1;
-  }
+    FILE *ep = fopen(f.encrypted, "r");
+    if (!ep) {
+        printf("Error opening encrypted file %s\n", f.encrypted);
+        return 1;
+    }
 
     decryption(ep, &f);
     fclose(ep);
 
-  return 0;
+    return 0;
 }
